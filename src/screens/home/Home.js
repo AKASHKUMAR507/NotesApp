@@ -20,6 +20,17 @@ import Note from '../../components/Note';
 import { useNotes } from '../../contexts/NoteProvider';
 import NotFound from '../../components/NotFound';
 
+
+const reverseData = data => {
+  return data.sort((a, b) => {
+    const aInt = parseInt(a.time);
+    const bInt = parseInt(b.time);
+    if (aInt < bInt) return 1;
+    if (aInt == bInt) return 0;
+    if (aInt > bInt) return -1;
+  });
+};
+
 const Home = ({ user, navigation }) => {
 
   const [greet, setGreet] = useState('');
@@ -30,7 +41,7 @@ const Home = ({ user, navigation }) => {
   const { notes, setNotes, findNotes } = useNotes()
   useEffect(() => {
     const backAction = () => {
-      Alert.alert("Are You Sure!", "You log out the app", [
+      Alert.alert("Are You Sure!", "You intend to log out of the application.", [
         {
           text: "Cancel",
           onPress: () => null,
@@ -102,6 +113,8 @@ const Home = ({ user, navigation }) => {
     fintGreet()
   }, [])
 
+  const reverseNotes = reverseData(notes)
+
   return (
     <>
 
@@ -132,7 +145,7 @@ const Home = ({ user, navigation }) => {
         ) : (
 
           <FlatList
-            data={notes}
+            data={reverseNotes}
             numColumns={2}
             showsVerticalScrollIndicator={false}
             columnWrapperStyle={{

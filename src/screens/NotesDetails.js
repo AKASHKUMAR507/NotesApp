@@ -23,6 +23,17 @@ const formateDate = (ms) => {
 
 const NotesDetails = (props) => {
 
+    useEffect(() => {
+        const backAction = () => {
+            props.navigation.navigate('Home');
+            return true; // Return true to prevent default back button action
+        };
+
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+        return () => backHandler.remove(); // Cleanup event listener on unmount
+    }, []);
+
     const [note, setNote] = useState(props.route.params.note)
     const { setNotes } = useNotes();
     const [showModal, setShowModal] = useState(false)
@@ -172,7 +183,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontFamily: FONTS._poppins_bold,
-        color:COLORS._blue,
+        color: COLORS._blue,
     },
     desc: {
         fontSize: 15,
@@ -186,8 +197,8 @@ const styles = StyleSheet.create({
         color: COLORS._gray,
         textAlign: 'right',
         fontSize: 15,
-        marginTop:5,
-        marginBottom:5,
+        marginTop: 5,
+        marginBottom: 5,
         opacity: 1,
     },
     btnContainer: {
