@@ -39,6 +39,7 @@ const Home = ({ user, navigation }) => {
   const [resultNotFound, setResultNotFound] = useState(false);
 
   const { notes, setNotes, findNotes } = useNotes()
+  
   useEffect(() => {
     const backAction = () => {
       Alert.alert("Are You Sure!", "You intend to log out of the application.", [
@@ -137,7 +138,7 @@ const Home = ({ user, navigation }) => {
         {notes.length ? (<SearchBar
           value={searchQuery}
           onChangeText={handleOnSearchInput}
-          onClear = {handleOnClear}
+          onClear={handleOnClear}
           container={styles.searchBarContainer} />) : null}
         {/* ********************** Items ************************* */}
         {resultNotFound ? (

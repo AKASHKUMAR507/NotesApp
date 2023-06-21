@@ -14,7 +14,6 @@ const SearchBar = (props) => {
                 placeholderTextColor={COLORS._gray}
             />
             {props.value ?(
-                
                 <IconBtn
                     name = {'close'}
                     size = {20}

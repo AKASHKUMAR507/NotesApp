@@ -23,6 +23,11 @@ const formateDate = (ms) => {
 
 const NotesDetails = (props) => {
 
+    const [note, setNote] = useState(props.route.params.note)
+    const { setNotes } = useNotes();
+    const [showModal, setShowModal] = useState(false)
+    const [isEdit, setIsEdit] = useState(false)
+
     useEffect(() => {
         const backAction = () => {
             props.navigation.navigate('Home');
@@ -33,11 +38,6 @@ const NotesDetails = (props) => {
 
         return () => backHandler.remove(); // Cleanup event listener on unmount
     }, []);
-
-    const [note, setNote] = useState(props.route.params.note)
-    const { setNotes } = useNotes();
-    const [showModal, setShowModal] = useState(false)
-    const [isEdit, setIsEdit] = useState(false)
     // Delete Note Functionality
     const deleteNote = async () => {
         const result = await AsyncStorage.getItem('notes');
@@ -47,7 +47,6 @@ const NotesDetails = (props) => {
         setNotes(newNotes);
         await AsyncStorage.setItem('notes', JSON.stringify(newNotes));
         props.navigation.goBack();
-
     }
 
     const displayDeleteAlert = () => {
